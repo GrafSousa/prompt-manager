@@ -12,11 +12,19 @@ export class InMemoryPromptsRepository implements PromptsRepository {
     this.items.push(prompt);
   }
 
-  findById(id: string): Promise<Prompt | null> {
-    throw new Error('Method not implemented.');
+  async findById(id: string): Promise<Prompt | null> {
+    const prompt = this.items.find((item) => item.id.toString() === id);
+
+    if (!prompt) {
+      return null;
+    }
+
+    return prompt;
   }
 
-  delete(prompt: Prompt): Promise<void> {
-    throw new Error('Method not implemented.');
+  async delete(prompt: Prompt): Promise<void> {
+    const itemIndex = this.items.findIndex((item) => item.id.equals(prompt.id));
+
+    this.items.splice(itemIndex, 1);
   }
 }
