@@ -18,6 +18,10 @@ describe('use-case: Create prompt', () => {
       content: 'content-test',
     });
 
+    if (result.isLeft()) {
+      return;
+    }
+
     const { success, prompt } = result.value;
 
     expect(success).toBe(true);

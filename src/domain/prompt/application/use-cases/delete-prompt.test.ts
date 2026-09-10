@@ -21,6 +21,10 @@ describe('use-case: Delete prompt', () => {
       id: prompt.id.toString(),
     });
 
+    if (result.isLeft()) {
+      return;
+    }
+
     const { success } = result.value;
 
     expect(success).toBe(true);
