@@ -4,12 +4,12 @@ import { motion } from 'motion/react';
 import { useEffect, useRef } from 'react';
 
 import { PromptCard } from '../card';
-import { useSearchPrompts } from '@/presentation/prompts/hooks/use-search-prompt';
+import { useSearchPrompts } from '@/presentation/prompts/hooks/use-search-prompts';
 
 export function PromptList() {
   const { prompts, hasMore, isLoadingMore, loadMore } = useSearchPrompts();
 
-  const sentinelRef = useRef<HTMLDivElement>(null);
+  const sentinelRef = useRef<HTMLLIElement>(null);
 
   useEffect(() => {
     const element = sentinelRef.current;
@@ -45,8 +45,7 @@ export function PromptList() {
           <PromptCard prompt={prompt} />
         </motion.li>
       ))}
-      {hasMore && <div ref={sentinelRef} />}
-      {isLoadingMore && <p>Loading prompts...</p>}
+      {hasMore && <li ref={sentinelRef} aria-hidden="true" />}
     </motion.ul>
   );
 }

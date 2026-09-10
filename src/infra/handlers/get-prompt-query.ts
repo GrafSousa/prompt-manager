@@ -1,4 +1,4 @@
-import { PromptsPresenter } from '@/presentation/prompts/presenters/prompts-presenter';
+import { PromptsPresenter } from '../presenters/prompts-presenter';
 import { GetPromptRequest } from '@/domain/prompt/application/dtos/get-prompt-request';
 import { GetPromptUseCase } from '@/domain/prompt/application/use-cases/get-prompt';
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error';

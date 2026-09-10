@@ -3,7 +3,7 @@ import { Prompt } from '@/domain/prompt/enterprise/entities/prompt';
 import { PrismaService } from './prisma-service';
 import { PrismaPromptMapper } from '../mappers/prisma-prompt-mapper';
 import { PaginationParams } from '@/core/repositories/pagination-params';
-import { FindManyRecentResponse } from '@/core/repositories/prompts-repository';
+import { FindManyRecentResponse } from '@/domain/prompt/application/dtos/find-many-recent-response';
 
 export class PrismaPromptsRepository implements PromptsRepository {
   constructor(private prisma: PrismaService) {}

@@ -11,7 +11,7 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Typography } from '../ui/typography';
 import { debounce } from '@/presentation/utils/debounce';
-import { useSearchPrompts } from '@/presentation/prompts/hooks/use-search-prompt';
+import { useSearchPrompts } from '@/presentation/prompts/hooks/use-search-prompts';
 import { useRouter } from 'next/navigation';
 
 interface SidebarContentProps {
@@ -49,12 +49,17 @@ export function SidebarContent({ children }: SidebarContentProps) {
       {isCollapsed ? (
         <>
           <header className="flex flex-row justify-between items-center mb-12">
-            <Link href="/">
+            <Link href="/" aria-label="Prompt manager home">
               <Image alt="" width={109} height={24} src="/logo.svg" />
             </Link>
 
-            <Button variant="ghost" size="icon" onClick={toggle}>
-              <ArrowLeftToLine />
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggle}
+              aria-label="Collapse sidebar"
+            >
+              <ArrowLeftToLine aria-hidden={true} />
             </Button>
           </header>
 
@@ -82,8 +87,13 @@ export function SidebarContent({ children }: SidebarContentProps) {
       ) : (
         <div className="flex flex-col gap-12">
           <header>
-            <Button variant="ghost" size="icon" onClick={toggle}>
-              <ArrowRightToLine />
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggle}
+              aria-label="Collapse sidebar"
+            >
+              <ArrowRightToLine aria-hidden={true} />
             </Button>
           </header>
 

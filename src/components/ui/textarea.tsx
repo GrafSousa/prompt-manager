@@ -54,13 +54,13 @@ export const TextAreaContent = React.forwardRef<
 
 TextAreaContent.displayName = 'TextAreaContent';
 
-interface TextAreaErrorProps {
+interface TextAreaErrorProps extends React.ComponentProps<'span'> {
   message: string;
 }
 
-function TextAreaError({ message }: TextAreaErrorProps) {
+function TextAreaError({ message, ...rest }: TextAreaErrorProps) {
   return (
-    <Typography variant="body-xs" className="text-alert-600">
+    <Typography variant="body-xs" className="text-alert-600" {...rest}>
       {message}
     </Typography>
   );

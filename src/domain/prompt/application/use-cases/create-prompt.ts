@@ -1,13 +1,10 @@
 import { Either, left, right } from '@/core/either';
-import { PromptsRepository } from '../repositories/prompts-repository';
+
 import { Prompt } from '../../enterprise/entities/prompt';
+import { PromptsRepository } from '../repositories/prompts-repository';
 import { InvalidTitleError } from './errors/invalid-title-error';
 import { InvalidContentError } from './errors/invalid-content-error';
-
-export interface CreatePromptRequest {
-  title: string;
-  content: string;
-}
+import { CreatePromptRequest } from '../dtos/create-prompt-request';
 
 type CreatePromptResponse = Either<
   InvalidTitleError | InvalidContentError,

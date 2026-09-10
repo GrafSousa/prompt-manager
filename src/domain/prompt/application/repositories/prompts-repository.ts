@@ -1,6 +1,6 @@
 import { PaginationParams } from '@/core/repositories/pagination-params';
 import { Prompt } from '../../enterprise/entities/prompt';
-import { FindManyRecentResponse } from '@/core/repositories/prompts-repository';
+import { FindManyRecentResponse } from '../dtos/find-many-recent-response';
 
 export interface PromptsRepository {
   save(prompt: Prompt): Promise<void>;

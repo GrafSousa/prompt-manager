@@ -1,6 +1,6 @@
 import { FetchPromptsUseCase } from '@/domain/prompt/application/use-cases/fetch-prompts';
 import { PaginationParams } from '@/core/repositories/pagination-params';
-import { PromptsPresenter } from '@/presentation/prompts/presenters/prompts-presenter';
+import { PromptsPresenter } from '../presenters/prompts-presenter';
 
 export class FetchPromptsQuery {
   constructor(private fetchPromptsUseCase: FetchPromptsUseCase) {}

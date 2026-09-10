@@ -64,28 +64,46 @@ export function NewPromptForm() {
 
       <Input.Root>
         <Input.Content variant={errors?.title ? 'error' : 'transparent'}>
+          <label htmlFor="prompt-title" className="sr-only">
+            Prompt title
+          </label>
           <Input.Control
             size="lg"
+            id="prompt-title"
             placeholder="Prompt title"
+            aria-invalid={Boolean(errors.title)}
+            aria-describedby={errors.title ? 'prompt-title-error' : undefined}
             {...register('title')}
           />
         </Input.Content>
 
         <div className="h-4">
           {errors?.title?.message && (
-            <Input.Error message={errors.title.message} />
+            <Input.Error
+              message={errors.title.message}
+              id="prompt-title-error"
+            />
           )}
         </div>
       </Input.Root>
 
       <TextArea.Root>
+        <label htmlFor="prompt-content" className="sr-only">
+          Prompt content
+        </label>
         <TextArea.Content
+          id="prompt-content"
           variant={errors?.content ? 'error' : 'default'}
           placeholder="Prompt content"
+          aria-invalid={Boolean(errors.content)}
+          aria-describedby={errors.content ? 'prompt-content-error' : undefined}
           {...register('content')}
         />
         {errors?.content?.message && (
-          <TextArea.Error message={errors.content.message} />
+          <TextArea.Error
+            message={errors.content.message}
+            id="prompt-content-error"
+          />
         )}
       </TextArea.Root>
     </form>

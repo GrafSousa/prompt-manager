@@ -1,3 +1,5 @@
+'use client';
+
 import { editPromptAction } from '@/app/prompts/actions/edit-prompt-action';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
@@ -6,6 +8,10 @@ export function useEditPrompt() {
 
   return useMutation({
     mutationFn: editPromptAction,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['prompts'] }),
+    onSuccess: (response) => {
+      if (response.success) {
+        queryClient.invalidateQueries({ queryKey: ['prompts'] });
+      }
+    },
   });
 }

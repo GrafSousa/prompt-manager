@@ -1,21 +1,13 @@
-import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
 
-interface PromptCardRootProps {
-  id: string;
-  children: React.ReactNode;
-}
-
-export function PromptCardRoot({ id, children }: PromptCardRootProps) {
+export function PromptCardRoot(props: React.ComponentProps<'div'>) {
   return (
-    <Link
-      href={`/prompts/${id}/edit`}
+    <div
       className={twMerge(
         'flex justify-between items-center gap-3 p-2 rounded-sm',
-        'cursor-pointer hover:bg-gray-200'
+        'hover:bg-gray-200'
       )}
-    >
-      {children}
-    </Link>
+      {...props}
+    />
   );
 }

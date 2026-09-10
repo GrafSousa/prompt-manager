@@ -1,7 +1,8 @@
 'use client';
 
-import { Trash } from 'lucide-react';
+import Link from 'next/link';
 import { toast } from 'sonner';
+import { Trash } from 'lucide-react';
 
 import { PromptResponseDTO } from '@/infra/dtos/prompt-dto';
 
@@ -30,12 +31,19 @@ export function PromptCard({ prompt }: PromptCardProps) {
 
   return (
     <PromptCardRoot id={prompt.id}>
-      <div className="flex flex-col truncate">
+      <Link
+        href={`/prompts/${prompt.id}/edit`}
+        className="flex flex-1 cursor-pointer flex-col truncate"
+      >
         <PromptCardTitle title={prompt.title} />
         <PromptCardContent content={prompt.content} />
-      </div>
+      </Link>
 
-      <PromptCardAction icon={Trash} onClick={() => handleDelete(prompt.id)} />
+      <PromptCardAction
+        icon={Trash}
+        onClick={() => handleDelete(prompt.id)}
+        aria-label={`Delete ${prompt.title}`}
+      />
     </PromptCardRoot>
   );
 }

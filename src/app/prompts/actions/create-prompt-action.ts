@@ -1,6 +1,6 @@
 'use server';
 
-import { NewPromptFormData } from '@/components/prompts/new-form';
+import { CreatePromptRequest } from '@/domain/prompt/application/dtos/create-prompt-request';
 import { InvalidContentError } from '@/domain/prompt/application/use-cases/errors/invalid-content-error';
 import { InvalidTitleError } from '@/domain/prompt/application/use-cases/errors/invalid-title-error';
 import { MakeCreatePromptCommandFactory } from '@/infra/factories/make-create-prompt-command';
@@ -11,7 +11,7 @@ interface ActionResponse {
 }
 
 export async function createPromptAction(
-  request: NewPromptFormData
+  request: CreatePromptRequest
 ): Promise<ActionResponse> {
   try {
     const { success } =

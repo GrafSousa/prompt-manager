@@ -91,13 +91,13 @@ const InputControl = React.forwardRef<HTMLInputElement, InputControlProps>(
 
 InputControl.displayName = 'InputControl';
 
-interface InputErrorProps {
+interface InputErrorProps extends React.ComponentProps<'span'> {
   message: string;
 }
 
-function InputError({ message }: InputErrorProps) {
+function InputError({ message, ...rest }: InputErrorProps) {
   return (
-    <Typography variant="body-xs" className="text-alert-600">
+    <Typography variant="body-xs" className="text-alert-600" {...rest}>
       {message}
     </Typography>
   );

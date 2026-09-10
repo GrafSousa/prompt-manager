@@ -1,5 +1,5 @@
 import { PaginationParams } from '@/core/repositories/pagination-params';
-import { FindManyRecentResponse } from '@/core/repositories/prompts-repository';
+import { FindManyRecentResponse } from '@/domain/prompt/application/dtos/find-many-recent-response';
 import { PromptsRepository } from '@/domain/prompt/application/repositories/prompts-repository';
 import { Prompt } from '@/domain/prompt/enterprise/entities/prompt';
 
@@ -17,17 +17,17 @@ export class InMemoryPromptsRepository implements PromptsRepository {
     cursor,
     limit = 20,
   }: PaginationParams): Promise<FindManyRecentResponse> {
+    let filteredItems = [...this.items];
+
     if (q) {
       const normalizedSearch = q?.trim().toLowerCase();
 
-      const prompts = this.items.filter((item) =>
+      filteredItems = filteredItems.filter((item) =>
         item.title.includes(normalizedSearch)
       );
-
-      this.items = prompts;
     }
 
-    const sortedPrompts = this.items.sort((a, b) => {
+    const sortedPrompts = filteredItems.sort((a, b) => {
       const createdAtDifference = b.createdAt.getTime() - a.createdAt.getTime();
 
       if (createdAtDifference !== 0) {

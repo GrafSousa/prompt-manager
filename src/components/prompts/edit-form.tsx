@@ -26,8 +26,6 @@ interface EditPromptFormProps {
 export function EditPromptForm({ prompt }: EditPromptFormProps) {
   const { mutateAsync } = useEditPrompt();
 
-  console.log({ prompt });
-
   const {
     handleSubmit,
     register,

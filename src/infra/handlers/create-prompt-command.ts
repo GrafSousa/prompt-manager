@@ -1,7 +1,5 @@
-import {
-  CreatePromptRequest,
-  CreatePromptUseCase,
-} from '@/domain/prompt/application/use-cases/create-prompt';
+import { CreatePromptRequest } from '@/domain/prompt/application/dtos/create-prompt-request';
+import { CreatePromptUseCase } from '@/domain/prompt/application/use-cases/create-prompt';
 import { InvalidContentError } from '@/domain/prompt/application/use-cases/errors/invalid-content-error';
 import { InvalidTitleError } from '@/domain/prompt/application/use-cases/errors/invalid-title-error';
 
