@@ -30,11 +30,27 @@ export class Prompt extends Entity<PromptProps> {
     return this.props.title;
   }
 
+  set title(title: string) {
+    this.props.title = title;
+
+    this.touch();
+  }
+
   get content() {
     return this.props.content;
   }
 
+  set content(content: string) {
+    this.props.content = content;
+
+    this.touch();
+  }
+
   get createdAt() {
     return this.props.createdAt;
+  }
+
+  private touch() {
+    this.props.updatedAt = new Date();
   }
 }

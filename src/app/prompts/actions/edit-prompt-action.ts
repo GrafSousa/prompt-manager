@@ -1,29 +1,31 @@
 'use server';
 
-import { NewPromptFormData } from '@/components/prompts/new-form';
+import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error';
+import { EditPromptRequest } from '@/domain/prompt/application/dtos/edit-prompt-request';
 import { InvalidContentError } from '@/domain/prompt/application/use-cases/errors/invalid-content-error';
 import { InvalidTitleError } from '@/domain/prompt/application/use-cases/errors/invalid-title-error';
-import { MakeCreatePromptCommandFactory } from '@/infra/factories/make-create-prompt-command';
+import { MakeEditPromptCommandFactory } from '@/infra/factories/make-edit-prompt-command';
 
 interface ActionResponse {
   success: boolean;
   message: string;
 }
 
-export async function createPromptAction(
-  request: NewPromptFormData
+export async function editPromptAction(
+  request: EditPromptRequest
 ): Promise<ActionResponse> {
   try {
     const { success } =
-      await MakeCreatePromptCommandFactory.create().handle(request);
+      await MakeEditPromptCommandFactory.create().handle(request);
 
     return {
       success,
-      message: 'Prompt created!',
+      message: 'Prompt edited!',
     };
   } catch (error) {
     if (
       error instanceof InvalidTitleError ||
+      error instanceof ResourceNotFoundError ||
       error instanceof InvalidContentError
     ) {
       return {
@@ -34,7 +36,7 @@ export async function createPromptAction(
 
     return {
       success: false,
-      message: 'Unable to create the prompt. Please try again.',
+      message: 'Unable to edit the prompt. Please try again.',
     };
   }
 }

@@ -10,7 +10,7 @@ export class FetchPromptsQuery {
 
     if (result.isLeft()) {
       return {
-        prompts: null,
+        prompts: [],
       };
     }
 

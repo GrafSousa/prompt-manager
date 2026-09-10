@@ -8,34 +8,43 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { TextArea } from '@/components/ui/textarea';
-import { useCreatePrompt } from '@/presentation/prompts/hooks/use-create-prompt';
 
-const newPromptSchema = z.object({
+import { PromptResponseDTO } from '@/infra/dtos/prompt-dto';
+import { useEditPrompt } from '@/presentation/prompts/hooks/use-edit-prompt';
+
+const editPromptSchema = z.object({
   title: z.string().trim().min(1, 'Title required'),
   content: z.string().trim().min(1, 'Content required'),
 });
 
-export type NewPromptFormData = z.infer<typeof newPromptSchema>;
+export type EditPromptFormData = z.infer<typeof editPromptSchema>;
 
-export function NewPromptForm() {
-  const { mutateAsync } = useCreatePrompt();
+interface EditPromptFormProps {
+  prompt: PromptResponseDTO;
+}
+
+export function EditPromptForm({ prompt }: EditPromptFormProps) {
+  const { mutateAsync } = useEditPrompt();
+
+  console.log({ prompt });
 
   const {
     handleSubmit,
     register,
-    reset,
     formState: { errors, isValid },
-  } = useForm<NewPromptFormData>({
-    resolver: zodResolver(newPromptSchema),
+  } = useForm<EditPromptFormData>({
+    defaultValues: {
+      title: prompt.title,
+      content: prompt.content,
+    },
+    resolver: zodResolver(editPromptSchema),
   });
 
-  const onSubmit: SubmitHandler<NewPromptFormData> = async (data) => {
-    const { success, message } = await mutateAsync(data);
+  const onSubmit: SubmitHandler<EditPromptFormData> = async (data) => {
+    const { success, message } = await mutateAsync({ id: prompt.id, ...data });
 
     if (success) {
       toast.success(message);
-
-      reset();
     } else {
       toast.error(message);
     }
@@ -43,7 +52,7 @@ export function NewPromptForm() {
 
   return (
     <form
-      id="new-prompt-form"
+      id="edit-prompt-form"
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col py-16 px-31 space-y-8"
     >
@@ -54,7 +63,7 @@ export function NewPromptForm() {
 
         <Button
           type="submit"
-          form="new-prompt-form"
+          form="edit-prompt-form"
           className="w-37.5"
           disabled={!isValid}
         >

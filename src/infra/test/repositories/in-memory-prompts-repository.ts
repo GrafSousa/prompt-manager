@@ -6,6 +6,12 @@ import { Prompt } from '@/domain/prompt/enterprise/entities/prompt';
 export class InMemoryPromptsRepository implements PromptsRepository {
   public items: Prompt[] = [];
 
+  async save(prompt: Prompt): Promise<void> {
+    const itemIndex = this.items.findIndex((item) => item.id.equals(prompt.id));
+
+    this.items[itemIndex] = prompt;
+  }
+
   async findManyRecent({
     q,
     cursor,

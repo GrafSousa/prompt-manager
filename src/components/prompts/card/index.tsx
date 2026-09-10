@@ -10,7 +10,6 @@ import { PromptCardTitle } from './title';
 import { PromptCardContent } from './content';
 import { PromptCardAction } from './action';
 import { useDeletePrompt } from '@/presentation/prompts/hooks/use-delete-prompt';
-import { useRouter } from 'next/navigation';
 
 interface PromptCardProps {
   prompt: PromptResponseDTO;
@@ -18,7 +17,6 @@ interface PromptCardProps {
 
 export function PromptCard({ prompt }: PromptCardProps) {
   const { mutateAsync } = useDeletePrompt();
-  const router = useRouter();
 
   async function handleDelete(id: string) {
     const response = await mutateAsync({ id });
@@ -28,10 +26,6 @@ export function PromptCard({ prompt }: PromptCardProps) {
     } else {
       toast.error(response?.message);
     }
-  }
-
-  function handleCardClick() {
-    router.push(`/prompts/edit/${prompt.id}`);
   }
 
   return (

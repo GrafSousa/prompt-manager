@@ -8,6 +8,18 @@ import { FindManyRecentResponse } from '@/core/repositories/prompts-repository';
 export class PrismaPromptsRepository implements PromptsRepository {
   constructor(private prisma: PrismaService) {}
 
+  async save(prompt: Prompt): Promise<void> {
+    await this.prisma.prompt.update({
+      where: {
+        id: prompt.id.toString(),
+      },
+      data: {
+        title: prompt.title,
+        content: prompt.content,
+      },
+    });
+  }
+
   async findManyRecent({
     q,
     cursor,
