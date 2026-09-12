@@ -3,6 +3,9 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { twMerge } from 'tailwind-merge';
 
 import { cn } from '@/lib/utils';
+import { Box } from './box';
+import { Spinner } from './spinner';
+import { Typography } from './typography';
 
 const buttonVariants = cva(
   twMerge(
@@ -13,8 +16,7 @@ const buttonVariants = cva(
     'active:not-aria-[haspopup]:translate-y-px',
     'hover:cursor-pointer disabled:pointer-events-none disabled:opacity-50',
     'aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20',
-    'dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40',
-    "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
+    'dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40'
   ),
   {
     variants: {
@@ -25,7 +27,8 @@ const buttonVariants = cva(
       },
       size: {
         default: 'h-11',
-        icon: 'p-3 size-10',
+        'icon-sm': 'p-1 size-6',
+        icon: 'p-3 size-11',
       },
     },
     defaultVariants: {
@@ -35,17 +38,42 @@ const buttonVariants = cva(
   }
 );
 
-function Button({
-  className,
-  variant = 'default',
-  size = 'default',
-  ...props
-}: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
+type ButtonProps = ButtonPrimitive.Props &
+  VariantProps<typeof buttonVariants> & {
+    loading?: boolean;
+  };
+
+function Button(props: ButtonProps) {
+  const {
+    className,
+    type = 'button',
+    variant = 'default',
+    size = 'default',
+    loading = false,
+    ...rest
+  } = props;
+
+  if (loading) {
+    return (
+      <Box
+        className={cn(
+          buttonVariants({ variant, size, className: `${className} gap-2` })
+        )}
+      >
+        <Spinner size="sm" />
+        {size !== 'icon' && (
+          <Typography variant="body-xs">Loading...</Typography>
+        )}
+      </Box>
+    );
+  }
+
   return (
     <ButtonPrimitive
+      type={type}
       data-slot="button"
       className={cn(buttonVariants({ variant, size, className }))}
-      {...props}
+      {...rest}
     />
   );
 }

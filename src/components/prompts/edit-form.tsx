@@ -24,7 +24,7 @@ interface EditPromptFormProps {
 }
 
 export function EditPromptForm({ prompt }: EditPromptFormProps) {
-  const { mutateAsync } = useEditPrompt();
+  const { isPending, mutateAsync } = useEditPrompt();
 
   const {
     handleSubmit,
@@ -52,9 +52,9 @@ export function EditPromptForm({ prompt }: EditPromptFormProps) {
     <form
       id="edit-prompt-form"
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col py-16 px-31 space-y-8"
+      className="grid grid-cols-3 mt-30 px-4 space-y-8"
     >
-      <header className="flex gap-4 flex-row justify-end">
+      <header className="col-span-3 flex justify-end gap-4">
         <Button variant="ghost" className="w-27">
           Copy
         </Button>
@@ -63,36 +63,55 @@ export function EditPromptForm({ prompt }: EditPromptFormProps) {
           type="submit"
           form="edit-prompt-form"
           className="w-37.5"
-          disabled={!isValid}
+          disabled={!isValid || isPending}
+          loading={isPending}
         >
           Save
         </Button>
       </header>
 
-      <Input.Root>
+      <Input.Root className="col-span-3">
         <Input.Content variant={errors?.title ? 'error' : 'transparent'}>
+          <label htmlFor="prompt-title" className="sr-only">
+            Prompt title
+          </label>
           <Input.Control
             size="lg"
+            id="prompt-title"
             placeholder="Prompt title"
+            aria-invalid={Boolean(errors.title)}
+            aria-describedby={errors.title ? 'prompt-title-error' : undefined}
             {...register('title')}
           />
         </Input.Content>
 
         <div className="h-4">
           {errors?.title?.message && (
-            <Input.Error message={errors.title.message} />
+            <Input.Error
+              message={errors.title.message}
+              id="prompt-title-error"
+            />
           )}
         </div>
       </Input.Root>
 
-      <TextArea.Root>
+      <TextArea.Root className="col-span-3">
+        <label htmlFor="prompt-content" className="sr-only">
+          Prompt content
+        </label>
         <TextArea.Content
+          id="prompt-content"
           variant={errors?.content ? 'error' : 'default'}
           placeholder="Prompt content"
+          aria-invalid={Boolean(errors.content)}
+          aria-describedby={errors.content ? 'prompt-content-error' : undefined}
           {...register('content')}
         />
         {errors?.content?.message && (
-          <TextArea.Error message={errors.content.message} />
+          <TextArea.Error
+            message={errors.content.message}
+            id="prompt-content-error"
+          />
         )}
       </TextArea.Root>
     </form>

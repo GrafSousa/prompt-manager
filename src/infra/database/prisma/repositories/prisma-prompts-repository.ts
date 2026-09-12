@@ -44,7 +44,6 @@ export class PrismaPromptsRepository implements PromptsRepository {
 
     return {
       prompts: prompts.map(PrismaPromptMapper.toDomain),
-
       nextCursor: hasNextPage ? (prompts.at(-1)?.id ?? null) : null,
     };
   }

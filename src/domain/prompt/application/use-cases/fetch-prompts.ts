@@ -1,16 +1,9 @@
 import { Either, right } from '@/core/either';
 import { PromptsRepository } from '../repositories/prompts-repository';
-import { Prompt } from '../../enterprise/entities/prompt';
 import { PaginationParams } from '@/core/repositories/pagination-params';
+import { FindManyRecentResponse } from '../dtos/find-many-recent-response';
 
-type FetchPromptsUseCaseResponse = Either<
-  null,
-  {
-    success: boolean;
-    prompts: Prompt[];
-    nextCursor: string | null;
-  }
->;
+type FetchPromptsUseCaseResponse = Either<null, FindManyRecentResponse>;
 
 export class FetchPromptsUseCase {
   constructor(private promptsRepository: PromptsRepository) {}

@@ -18,7 +18,7 @@ const newPromptSchema = z.object({
 export type NewPromptFormData = z.infer<typeof newPromptSchema>;
 
 export function NewPromptForm() {
-  const { mutateAsync } = useCreatePrompt();
+  const { isPending, mutateAsync } = useCreatePrompt();
 
   const {
     handleSubmit,
@@ -45,9 +45,9 @@ export function NewPromptForm() {
     <form
       id="new-prompt-form"
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col py-16 px-31 space-y-8"
+      className="grid grid-cols-3 mt-30 px-4 space-y-8"
     >
-      <header className="flex gap-4 flex-row justify-end">
+      <header className="col-span-3 flex justify-end gap-4">
         <Button variant="ghost" className="w-27">
           Copy
         </Button>
@@ -56,13 +56,14 @@ export function NewPromptForm() {
           type="submit"
           form="new-prompt-form"
           className="w-37.5"
-          disabled={!isValid}
+          disabled={!isValid || isPending}
+          loading={isPending}
         >
           Save
         </Button>
       </header>
 
-      <Input.Root>
+      <Input.Root className="col-span-3">
         <Input.Content variant={errors?.title ? 'error' : 'transparent'}>
           <label htmlFor="prompt-title" className="sr-only">
             Prompt title
@@ -87,7 +88,7 @@ export function NewPromptForm() {
         </div>
       </Input.Root>
 
-      <TextArea.Root>
+      <TextArea.Root className="col-span-3">
         <label htmlFor="prompt-content" className="sr-only">
           Prompt content
         </label>

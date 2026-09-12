@@ -6,7 +6,7 @@ interface ContentProps {
 
 export function PromptCardContent({ content }: ContentProps) {
   return (
-    <Typography variant="body-xs" className="text-gray-100">
+    <Typography variant="body-xs" className="text-gray-100 block truncate">
       {content}
     </Typography>
   );

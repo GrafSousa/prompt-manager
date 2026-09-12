@@ -29,6 +29,9 @@
 
   --leading-heading: 120%;
   --leading-body: 150%;
+
+  --grid-template-rows-app: max-content 1fr;
+  --grid-template-columns-app: max-content 1fr;
 }
 
 @theme inline {

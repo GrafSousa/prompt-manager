@@ -1,8 +1,8 @@
 'use client';
 
-import { MissingContextError } from '@/core/errors/missing-context-error';
-import React, { createContext, useContext, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
+import React, { createContext, useContext, useState } from 'react';
+import { MissingContextError } from '@/core/errors/missing-context-error';
 
 interface SidebarRootValues {
   isCollapsed: boolean;
@@ -32,8 +32,10 @@ export function SidebarRoot({
         data-slot="sidebar"
         data-collapsed={isCollapsed}
         className={twMerge(
-          'flex flex-col h-full bg-gray-700 overflow-y-auto',
-          `${isCollapsed ? 'w-100 p-8' : 'w-18 px-2 py-8 items-center'}`,
+          'absolute z-10 inset-x-4 top-4 bg-gray-700 p-4 rounded-2xl',
+          'md:static md:flex md:h-screen md:flex-col md:overflow-hidden',
+          'transition-[width,height] duration-200 ease-linear',
+          `${isCollapsed ? 'h-100 md:w-100' : 'h-15 md:w-18 md:px-2 md:py-8 md:items-center'}`,
           className
         )}
         {...props}

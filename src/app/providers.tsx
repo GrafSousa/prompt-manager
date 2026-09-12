@@ -1,5 +1,6 @@
 'use client';
 
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
@@ -14,6 +15,7 @@ interface ProvidersProps {
 export function Providers({ children }: ProvidersProps) {
   return (
     <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools />
       <NuqsAdapter>{children}</NuqsAdapter>
     </QueryClientProvider>
   );

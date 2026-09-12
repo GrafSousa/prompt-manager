@@ -17,7 +17,7 @@ interface PromptCardProps {
 }
 
 export function PromptCard({ prompt }: PromptCardProps) {
-  const { mutateAsync } = useDeletePrompt();
+  const { isPending, mutateAsync } = useDeletePrompt();
 
   async function handleDelete(id: string) {
     const response = await mutateAsync({ id });
@@ -33,13 +33,14 @@ export function PromptCard({ prompt }: PromptCardProps) {
     <PromptCardRoot id={prompt.id}>
       <Link
         href={`/prompts/${prompt.id}/edit`}
-        className="flex flex-1 cursor-pointer flex-col truncate"
+        className="min-w-0 flex-1 cursor-pointer overflow-hidden"
       >
         <PromptCardTitle title={prompt.title} />
         <PromptCardContent content={prompt.content} />
       </Link>
 
       <PromptCardAction
+        loading={isPending}
         icon={Trash}
         onClick={() => handleDelete(prompt.id)}
         aria-label={`Delete ${prompt.title}`}
