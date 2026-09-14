@@ -16,3 +16,6 @@ pre-push:
     test:
       glob: '*.{ts,tsx}'
       run: pnpm test:coverage
+    test-e2e:
+      global: '*.e2e-spec'
+      run: pnpm test:e2e
